@@ -90,13 +90,11 @@ if __name__ == "__main__":
     while True:
         screenXO(dane)
         if gracz == 1: printGreen("Gracz 1\n")
-        else: printRed("Gracz 2\n")
         x = int(input("Podaj wsp x: "))
         y = int(input("Podaj wsp y: "))
         dane[y][x] = gracz
         gracz *= -1
-   komputer = -1
-               printRed("Komputer\n")
+        else: printRed("Komputer\n") 
             x = randint(0, 9)
             y = randint(0, 9)
             dane[y][x] = gracz
