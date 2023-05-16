@@ -95,3 +95,9 @@ if __name__ == "__main__":
         y = int(input("Podaj wsp y: "))
         dane[y][x] = gracz
         gracz *= -1
+   komputer = -1
+               printRed("Komputer\n")
+            x = randint(0, 9)
+            y = randint(0, 9)
+            dane[y][x] = gracz
+            gracz *= -1
