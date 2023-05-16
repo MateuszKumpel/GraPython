@@ -1,5 +1,3 @@
-print("hello world")
-
 #generowanie planszy
 def create_plansza(size):
     plansza = ""
