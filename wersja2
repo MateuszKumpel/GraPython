@@ -1,0 +1,110 @@
+import random
+
+def print_board(board):
+    for row in board:
+        print("|".join(row))
+        print("_" * (4 * len(row) + 1))
+
+def create_board(size):
+    board = []
+    for _ in range(size):
+        row = []
+        for _ in range(size):
+            row.append(" ")
+        board.append(row)
+    return board
+
+def update_board(board, row, col, player):
+    if board[row][col] == " ":
+        board[row][col] = player
+        return True
+    else:
+        return False
+
+def check_winner(board):
+    size = len(board)
+    
+    # Sprawdzenie wierszy
+    for row in board:
+        if all(cell == "X" for cell in row):
+            return "X"
+        elif all(cell == "O" for cell in row):
+            return "O"
+    
+    # Sprawdzenie kolumn
+    for col in range(size):
+        if all(board[row][col] == "X" for row in range(size)):
+            return "X"
+        elif all(board[row][col] == "O" for row in range(size)):
+            return "O"
+    
+    # Sprawdzenie przekątnych
+    if all(board[i][i] == "X" for i in range(size)):
+        return "X"
+    elif all(board[i][i] == "O" for i in range(size)):
+        return "O"
+    
+    if all(board[i][size-i-1] == "X" for i in range(size)):
+        return "X"
+    elif all(board[i][size-i-1] == "O" for i in range(size)):
+        return "O"
+    
+    # Brak zwycięzcy
+    return None
+
+def is_board_full(board):
+    for row in board:
+        if " " in row:
+            return False
+    return True
+
+def get_human_move(board, size):
+    while True:
+        row = int(input("Podaj numer wiersza (0-{}): ".format(size-1)))
+        col = int(input("Podaj numer kolumny (0-{}): ".format(size-1)))
+
+        if row < 0 or row >= size or col < 0 or col >= size:
+            print("Nieprawidłowe współrzędne. Spróbuj ponownie.")
+            continue
+
+        if not update_board(board, row, col, "X"):
+            print("To pole jest już zajęte. Spróbuj ponownie.")
+            continue
+
+        break
+
+def get_computer_move(board, size):
+    while True:
+        row = random.randint(0, size-1)
+        col = random.randint(0, size-1)
+
+        if update_board(board, row, col, "O"):
+            break
+
+def play_game():
+    size = int(input("Podaj rozmiar planszy: "))
+    board = create_board(size)
+    current_player = "X"
+    
+    while True:
+        print_board(board)
+        
+        if current_player == "X":
+            get_human_move(board, size)
+        else:
+            get_computer_move(board, size)
+        
+        winner = check_winner(board)
+        if winner:
+            print_board(board)
+            print("Gracz", winner, "wygrał!")
+            break
+        
+        if is_board_full(board):
+            print_board(board)
+            print("Remis!")
+            break
+        
+        current_player = "O" if current_player == "X" else "X"
+
+play_game()
