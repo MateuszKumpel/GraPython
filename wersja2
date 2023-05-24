@@ -79,6 +79,9 @@ def get_computer_move(board, size):
         col = random.randint(0, size-1)
 
         if update_board(board, row, col, "O"):
+            print()
+            print("Oto ruch komputera:")
+            print()
             break
 
 def play_game():
